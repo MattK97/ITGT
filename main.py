@@ -18,7 +18,7 @@ rows, columns = (10,10)
 board = [[0 for i in range(columns)] for j in range(rows)]
 
 
-#######################################################################################################################################################
+###################################################################ZADANIE 1##################################################################
 def newTurn(player, opponent):
     if player.lastPlaced is None:
         randomRow = randint(0,9)
@@ -50,7 +50,7 @@ def checkForOpportunities(lastPlaced, player):
         player.danger += 1
         return (lastPlaced[0], lastPlaced[1]-1)
 
-    elif lastPlaced[1]+1 >= 9 and board[lastPlaced[0]][lastPlaced[1]+1] == 0:
+    elif lastPlaced[1]+1 <= 9 and board[lastPlaced[0]][lastPlaced[1]+1] == 0:
         player.danger += 1
         return (lastPlaced[0], lastPlaced[1]+1)
 
@@ -59,8 +59,6 @@ def checkForOpportunities(lastPlaced, player):
             if 0 in board[a]:
                 b = board[a].index(0)
                 return (a,b)
-
-
 
 def checkOfWin(board, tile):
     boardHeight = 10
@@ -92,7 +90,7 @@ def checkOfWin(board, tile):
 
 
 
-#####################################################################################################################################################################################
+#########################################################################ZADANIE 2#############################################################################################
 
 def createRandomBoard():
     totalCounter = 0
@@ -110,11 +108,6 @@ def createRandomBoard():
     print("Poprawnych symulacji w 10 tysiącach prób: " + str(totalCounter))
     print("Wynik: " +  str(totalCounter/10) + "100^3 = " + str((totalCounter/10)*(100**3)))
 ######################################################################################################################################################################################
-
-
-
-
-
 
 maxNumberOfMoves = 100
 numberOfMoves = 0;
