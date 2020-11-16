@@ -68,7 +68,7 @@ def bestMove(player):
         for j in range(10):
             if(board[i][j] == 0):
                 board[i][j] = player.color
-                score = minimax(board, 5, player.isMaxing)
+                score = aspiration(board, 5, 5, 1)
                 board[i][j] = 0
                 if player.isMaxing is False:
                     if score > bestScore:
@@ -197,6 +197,35 @@ def heuristic():
 #########################################################################################
     return score
 
+
+def abnegamax(board, depth, alpha, beta, sign):
+    print("START")
+    if depth==0:
+        h = heuristic()
+        return h* sign
+
+    for i in range(10):
+        for j in range(10):
+            if board[i][j] == 0:
+                if sign == 1:
+                    board[i][j] = "B"
+                elif sign ==-1:
+                    board[i][j] = "R"
+                alpha = max(alpha, -abnegamax(board, depth-1, -beta, -alpha, -sign))
+                board[i][j] = 0
+                return alpha
+    return alpha
+
+def aspiration(board, depth, previous, sign):
+    alpha = previous - 10
+    beta = previous + 10
+    while True :
+        result = abnegamax(board, depth, alpha, beta, sign)
+        if result <= alpha:
+            alpha = -np.inf
+        elif result >= beta:
+            beta = np.inf
+        else: return result
 
 def minimax(board, depth, isMaximizing):
     if depth==0:
